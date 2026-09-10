@@ -1,11 +1,32 @@
-Folder structure:
+# VirtualBox Headless Kubernetes Lab Cluster
 
+A bare-metal Kubernetes development sandbox engineered on Ubuntu Server VMs inside Oracle VirtualBox. It utilizes advanced eBPF networking, Layer 2 load balancing, and distributed block storage replication.
+
+## 📁 Repository File Structure
+
+```text
+~/vbox-k8s-cluster/
+├── README.md                           # Main cluster documentation
+└── infrastructure/
+    ├── cilium/
+    │   ├── README.md                   # Networking & Load Balancing info
+    │   └── cilium-values.yaml          # Cilium Helm configurations
+    ├── headlamp/
+    │   ├── README.md                   # Web Management UI info
+    │   └── headlamp-values.yaml        # Headlamp Helm configurations
+    └── longhorn/
+        ├── README.md                   # Distributed Storage info
+        └── longhorn-values.yaml        # Longhorn Helm configurations
 ```
-vbox-k8s-cluster/
-├── cluster-init/                # Scripts or notes on how you ran kubeadm init
-├── infrastructure/              # Core cluster utilities (Layer 4-7)
-│   ├── cilium/                  # Cilium configs (values.yaml, IPPool, L2Policy)
-│   └── ingress-nginx/           # Future ingress controllers
-└── apps/                        # Your actual container applications
-    └── test-web/                # Nginx test deployment manifests
-```
+
+---
+
+## 📘 Appendix / Acronym Dictionary
+
+*   **ARP**: Address Resolution Protocol. Used by Cilium L2 announcements to claim IP traffic on local Host-Only subnets without an upstream router.
+*   **CSI**: Container Storage Interface. The standard API specification enabling Kubernetes to provision and manage persistent underlying disk storage volume drivers.
+*   **eBPF**: Extended Berkeley Packet Filter. A kernel technology allowing programs to run sandboxed code inside the Linux kernel without changing kernel source code or loading modules, used here for ultra-fast networking.
+*   **IPAM**: IP Address Management. The system engine that calculates, assigns, and tracks internal pod networks and external LoadBalancer IP addresses.
+*   **iSCSI**: Internet Small Computer Systems Interface. A protocol used by Longhorn to map raw block storage devices over the local network to active cluster pods.
+*   **PV / PVC**: PersistentVolume / PersistentVolumeClaim. A PV is an actual cluster disk storage resource block. A PVC is an application's matching ticket requesting a slice of that storage.
+*   **VXLAN**: Virtual Extensible LAN. An encapsulation protocol used to create an overlay tunnel network, enabling pods on different VMs to communicate securely.
