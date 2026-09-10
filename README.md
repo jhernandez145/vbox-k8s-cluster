@@ -30,3 +30,5 @@ A bare-metal Kubernetes development sandbox engineered on Ubuntu Server VMs insi
 *   **iSCSI**: Internet Small Computer Systems Interface. A protocol used by Longhorn to map raw block storage devices over the local network to active cluster pods.
 *   **PV / PVC**: PersistentVolume / PersistentVolumeClaim. A PV is an actual cluster disk storage resource block. A PVC is an application's matching ticket requesting a slice of that storage.
 *   **VXLAN**: Virtual Extensible LAN. An encapsulation protocol used to create an overlay tunnel network, enabling pods on different VMs to communicate securely.
+*   **GHCR**: GitHub Container Registry. A cloud platform used to host container images and OCI-compliant Helm chart packages securely.
+*   **OCI**: Open Container Initiative. A governance structure that standardizes container formats and runtimes, allowing Helm charts to be stored and pulled exactly like standard Docker container images.
