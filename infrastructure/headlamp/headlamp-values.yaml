@@ -1,0 +1,12 @@
+replicaCount: 1
+
+config:
+  baseURL: ""
+
+service:
+  type: LoadBalancer
+  port: 80
+
+# FORCE THE SCHEDULER TO IGNORE LINGERING STARTUP AND WORKER TAINTS
+tolerations:
+  - operator: "Exists"

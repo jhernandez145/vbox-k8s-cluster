@@ -1,0 +1,19 @@
+# Now that Cilium's Layer 2 engine is active,
+# you must tell Kubernetes which specific IP addresses it is
+# allowed to hand out to applications.
+
+# Because your VirtualBox Host-Only network uses 192.168.102.0/24,
+# and your master/workers occupy .10, .11, and .12, let's
+# dedicate a safe pool of ten IPs (192.168.102.200 through
+# 192.168.102.210) that your physical host computer can directly 
+# ping.
+
+apiVersion: "cilium.io/v2"
+kind: CiliumLoadBalancerIPPool
+metadata:
+  name: "vbox-hostonly-pool"
+  namespace: kube-system
+spec:
+  blocks:
+    # Hand out IPs 192.168.102.200 to 192.168.102.207
+    - cidr: "192.168.102.200/29"

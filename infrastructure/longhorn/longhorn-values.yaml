@@ -1,0 +1,13 @@
+persistence:
+  defaultClass: true
+  defaultClassReplicaCount: 2  # Mirror data across both node-worker-1 and node-worker-2
+
+# longhornFrontend:
+#   service:
+#     type: LoadBalancer
+#     port: 80
+
+# The correct modern mapping schema for the Longhorn UI service
+service:
+  ui:
+    type: LoadBalancer

@@ -1,0 +1,18 @@
+# Configure the Layer 2 Advertisement Policy
+
+# For your physical host computer to actually talk to those new
+# LoadBalancer IPs, the worker nodes need to "spoof" ARP
+# packets—telling your host computer's network interface cards
+# exactly which VM is currently hosting your application.
+
+apiVersion: "cilium.io/v2alpha1"
+kind: CiliumL2AnnouncementPolicy
+metadata:
+  name: "vbox-l2-policy"
+  namespace: kube-system
+spec:
+  serviceSelector: {} # <--- Tells Cilium to broadcast ALL LoadBalancer services
+  interfaces:
+    - ^enp0s8$
+  externalIPs: true
+  loadBalancerIPs: true

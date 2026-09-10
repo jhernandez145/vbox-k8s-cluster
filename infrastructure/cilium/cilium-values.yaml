@@ -1,0 +1,51 @@
+cluster:
+  name: vbox-cluster
+
+kubeProxyReplacement: true
+k8sServiceHost: 192.168.102.10
+k8sServicePort: 6443
+
+# FORCE CILIUM TO ATTACH TO BOTH INTERFACES
+devices:
+  - enp0s3
+  - enp0s8
+
+# ENABLE NATIVE EBPF ROUTING AND MASQUERADING FOR HOST INTERFACES
+# routingMode: native
+# Tell Cilium what the pod subnet is
+# ipv4NativeRoutingCIDR: "10.244.0.0/16"
+# Allow workers to route natively
+# autoDirectNodeRoutes: true
+
+# Let Cilium safely encapsulate traffic between nodes
+routingMode: tunnel
+tunnelProtocol: vxlan
+
+# REPAIR HANDSHAKE FOR NON-KUBEPROXY CLUSTERS
+bpf:
+  masquerade: true
+
+hostServices:
+  enabled: true
+  protocols:
+    - tcp
+    - udp
+
+hubble:
+  enabled: true
+  relay:
+    enabled: true
+  ui:
+    enabled: true
+
+l2announcements:
+  enabled: true
+
+ipam:
+  mode: kubernetes
+
+# ENABLE THE BUILT-IN EBPF INGRESS ENGINE
+ingressController:
+  enabled: true
+  default: true
+  loadBalancerMode: dedicated
