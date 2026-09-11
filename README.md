@@ -7,6 +7,10 @@ A bare-metal Kubernetes development sandbox engineered on Ubuntu Server VMs insi
 ```text
 ~/vbox-k8s-cluster/
 ├── README.md                           # Main cluster documentation
+├── utils/
+│   ├── generate-ssh-tunnel-command.sh  # Build the SSH tunnel command for local access
+│   ├── show-service-ips.sh             # Print current external service IPs
+│   └── list-local-service-urls.sh      # Print the local URLs behind the tunnel
 └── infrastructure/
     ├── cilium/
     │   ├── README.md                   # Networking & Load Balancing info
@@ -18,6 +22,20 @@ A bare-metal Kubernetes development sandbox engineered on Ubuntu Server VMs insi
         ├── README.md                   # Distributed Storage info
         └── longhorn-values.yaml        # Longhorn Helm configurations
 ```
+
+---
+
+## 🔧 Utility Scripts
+
+A set of bash helpers for accessing the cluster services locally is available in [utils/README.md](utils/README.md).
+
+This includes helpers to:
+- [generate the SSH tunnel command](utils/generate-ssh-tunnel-command.sh)
+- [print the current service IPs](utils/show-service-ips.sh)
+- [list the local URLs behind the tunnel](utils/list-local-service-urls.sh)
+- [create a Headlamp admin token](utils/create-headlamp-token.sh)
+
+See [utils/README.md](utils/README.md) for purpose, usage, and sample output for each script.
 
 ---
 
