@@ -26,3 +26,27 @@ grafana:
 
   # Set a default administrator password (change this to whatever you want)
   adminPassword: "admin"
+
+  # SECURE ENVIRONMENT VARIABLE INJECTION MAPPING
+  extraSecretEnvironmentVars:
+    - envName: KEYCLOAK_CLIENT_SECRET
+      secretName: grafana-keycloak-sso
+      secretKey: client-secret
+
+ # INJECT ENTERPRISE SINGLE SIGN-ON HANDSHAKE PARAMETERS
+  grafana.ini:
+    server:
+      # Explicitly instructs Grafana to build callback strings using its real IP
+      root_url: "http://192.168.102.203/"
+      domain: "192.168.102.203"
+    auth.generic_oauth:
+      enabled: true
+      name: "Keycloak SSO"
+      allow_sign_up: true
+      client_id: grafana
+      client_secret: $__env{KEYCLOAK_CLIENT_SECRET}
+      scopes: "openid profile email"
+      auth_url: "http://192.168.102.204:80/auth/realms/vbox-cluster/protocol/openid-connect/auth"
+      token_url: "http://keycloak-keycloak-chart-http.identity.svc.cluster.local:80/auth/realms/vbox-cluster/protocol/openid-connect/token"
+      api_url: "http://keycloak-keycloak-chart-http.identity.svc.cluster.local:80/auth/realms/vbox-cluster/protocol/openid-connect/userinfo"
+      role_attribute_path: "contains(roles[*], 'admin') && 'Admin' || 'Viewer'"
